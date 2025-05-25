@@ -1,6 +1,6 @@
 import assert from 'assert';
 import crypto from 'crypto';
-import { clean, format, parse, toHTML } from 'minecraft-motd-util';
+import { clean, format, parse, toHTML } from '@rlqd/minecraft-motd-util';
 import TCPClient from './structure/TCPClient';
 import { JavaStatusOptions } from './types/JavaStatusOptions';
 import { JavaStatusResponse } from './types/JavaStatusResponse';
@@ -51,7 +51,7 @@ export function status(host: string, port = 25565, options?: JavaStatusOptions):
 			await socket.connect({ host, port, timeout: options?.timeout ?? 1000 * 5 });
 
 			// Handshake packet
-			// https://wiki.vg/Server_List_Ping#Handshake
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Handshake
 			{
 				socket.writeVarInt(0x00);
 				socket.writeVarInt(47);
@@ -62,7 +62,7 @@ export function status(host: string, port = 25565, options?: JavaStatusOptions):
 			}
 
 			// Request packet
-			// https://wiki.vg/Server_List_Ping#Request
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Request
 			{
 				socket.writeVarInt(0x00);
 				await socket.flush();
@@ -71,7 +71,7 @@ export function status(host: string, port = 25565, options?: JavaStatusOptions):
 			let response;
 
 			// Response packet
-			// https://wiki.vg/Server_List_Ping#Response
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Response
 			{
 				const packetLength = await socket.readVarInt();
 				await socket.ensureBufferedData(packetLength);
@@ -85,7 +85,7 @@ export function status(host: string, port = 25565, options?: JavaStatusOptions):
 			const payload = crypto.randomBytes(8).readBigInt64BE();
 
 			// Ping packet
-			// https://wiki.vg/Server_List_Ping#Ping
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Ping
 			{
 				socket.writeVarInt(0x01);
 				socket.writeInt64BE(payload);
@@ -95,7 +95,7 @@ export function status(host: string, port = 25565, options?: JavaStatusOptions):
 			const pingStart = Date.now();
 
 			// Pong packet
-			// https://wiki.vg/Server_List_Ping#Pong
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Pong
 			{
 				const packetLength = await socket.readVarInt();
 				await socket.ensureBufferedData(packetLength);

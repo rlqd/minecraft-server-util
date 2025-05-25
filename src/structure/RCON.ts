@@ -85,7 +85,7 @@ class RCON extends EventEmitter implements RCONEvents {
 			const passwordBytes = encoder.encode(password);
 
 			// Login packet
-			// https://wiki.vg/RCON#3:_Login
+			// https://minecraft.wiki/w/Java_Edition_protocol/RCON#3:_Login
 			{
 				this.socket.writeInt32LE(10 + passwordBytes.byteLength);
 				this.socket.writeInt32LE(this.requestID++);
@@ -96,7 +96,7 @@ class RCON extends EventEmitter implements RCONEvents {
 			}
 
 			// Login response packet
-			// https://wiki.vg/RCON#3:_Login
+			// https://minecraft.wiki/w/Java_Edition_protocol/RCON#3:_Login
 			{
 				const packetLength = await this.socket.readInt32LE();
 				this.socket.ensureBufferedData(packetLength);

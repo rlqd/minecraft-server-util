@@ -54,14 +54,14 @@ export function statusFE(host: string, port = 25565, options?: JavaStatusOptions
 			await socket.connect({ host, port, timeout: options?.timeout ?? 1000 * 5 });
 
 			// Ping packet
-			// https://wiki.vg/Server_List_Ping#Beta_1.8_to_1.3
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Beta_1.8_to_1.3
 			{
 				socket.writeByte(0xFE);
 				await socket.flush(false);
 			}
 
 			// Response packet
-			// https://wiki.vg/Server_List_Ping#Beta_1.8_to_1.3
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Beta_1.8_to_1.3
 			{
 				const packetID = await socket.readByte();
 				if (packetID !== 0xFF) throw new Error('Expected server to send 0xFF kick packet, got ' + packetID);

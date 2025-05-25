@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { clean, format, parse, toHTML } from 'minecraft-motd-util';
+import { clean, format, parse, toHTML } from '@rlqd/minecraft-motd-util';
 import { TextEncoder } from 'util';
 import TCPClient from './structure/TCPClient';
 import { JavaStatusOptions } from './types/JavaStatusOptions';
@@ -58,7 +58,7 @@ export function statusFE01FA(host: string, port = 25565, options?: JavaStatusOpt
 			await socket.connect({ host, port, timeout: options?.timeout ?? 1000 * 5 });
 
 			// Client to server packet
-			// https://wiki.vg/Server_List_Ping#Client_to_server
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Client_to_server
 			{
 				const hostBytes = encoder.encode(host);
 
@@ -74,7 +74,7 @@ export function statusFE01FA(host: string, port = 25565, options?: JavaStatusOpt
 			}
 
 			// Server to client packet
-			// https://wiki.vg/Server_List_Ping#Server_to_client
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Server_to_client
 			{
 				const kickIdentifier = await socket.readByte();
 				if (kickIdentifier !== 0xFF) throw new Error('Expected server to send 0xFF kick packet, got ' + kickIdentifier);

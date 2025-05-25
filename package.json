@@ -1,5 +1,5 @@
 {
-	"name": "minecraft-server-util",
+	"name": "@rlqd/minecraft-server-util",
 	"version": "5.4.4",
 	"description": "A Node.js library for Minecraft servers that can retrieve status, perform queries, and RCON into servers.",
 	"main": "dist/index.js",
@@ -36,14 +36,14 @@
 		"node": ">=10.0.0"
 	},
 	"bugs": {
-		"url": "https://github.com/PassTheMayo/minecraft-server-util"
+		"url": "https://github.com/rlqd/minecraft-server-util"
 	},
 	"repository": {
-		"url": "https://github.com/PassTheMayo/minecraft-server-util",
+		"url": "https://github.com/rlqd/minecraft-server-util",
 		"type": "git"
 	},
 	"homepage": "https://passthemayo.gitbook.io/minecraft-server-util/",
 	"dependencies": {
-		"minecraft-motd-util": "^1.1.9"
+		"@rlqd/minecraft-motd-util": "^1.1.9"
 	}
 }

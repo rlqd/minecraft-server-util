@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { clean, format, parse, toHTML } from 'minecraft-motd-util';
+import { clean, format, parse, toHTML } from '@rlqd/minecraft-motd-util';
 import { TextDecoder } from 'util';
 import TCPClient from './structure/TCPClient';
 import { JavaStatusOptions } from './types/JavaStatusOptions';
@@ -56,7 +56,7 @@ export function statusLegacy(host: string, port = 25565, options?: JavaStatusOpt
 			await socket.connect({ host, port, timeout: options?.timeout ?? 1000 * 5 });
 
 			// Client to server packet
-			// https://wiki.vg/Server_List_Ping#Client_to_server
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Client_to_server
 			{
 				socket.writeBytes(Uint8Array.from([0xFE, 0x01]));
 				await socket.flush(false);
@@ -69,7 +69,7 @@ export function statusLegacy(host: string, port = 25565, options?: JavaStatusOpt
 			let maxPlayers;
 
 			// Server to client packet
-			// https://wiki.vg/Server_List_Ping#Server_to_client
+			// https://minecraft.wiki/w/Java_Edition_protocol/Server_List_Ping#Server_to_client
 			{
 				const packetType = await socket.readByte();
 				if (packetType !== 0xFF) throw new Error('Packet returned from server was unexpected type');

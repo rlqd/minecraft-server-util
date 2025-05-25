@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { clean, format, parse, toHTML } from 'minecraft-motd-util';
+import { clean, format, parse, toHTML } from '@rlqd/minecraft-motd-util';
 import UDPClient from './structure/UDPClient';
 import { BedrockStatusOptions } from './types/BedrockStatusOptions';
 import { BedrockStatusResponse } from './types/BedrockStatusResponse';
@@ -48,7 +48,7 @@ export function statusBedrock(host: string, port = 19132, options?: BedrockStatu
 			}
 
 			// Unconnected ping packet
-			// https://wiki.vg/Raknet_Protocol#Unconnected_Ping
+			// https://minecraft.wiki/w/Java_Edition_protocol/Raknet_Protocol#Unconnected_Ping
 			{
 				socket.writeByte(0x01);
 				socket.writeInt64BE(BigInt(Date.now()));
@@ -58,7 +58,7 @@ export function statusBedrock(host: string, port = 19132, options?: BedrockStatu
 			}
 
 			// Unconnected pong packet
-			// https://wiki.vg/Raknet_Protocol#Unconnected_Pong
+			// https://minecraft.wiki/w/Java_Edition_protocol/Raknet_Protocol#Unconnected_Pong
 			{
 				const packetType = await socket.readByte();
 				if (packetType !== 0x1C) throw new Error('Expected server to send packet type 0x1C, received ' + packetType);

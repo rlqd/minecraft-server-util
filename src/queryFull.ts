@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { clean, format, parse, toHTML } from 'minecraft-motd-util';
+import { clean, format, parse, toHTML } from '@rlqd/minecraft-motd-util';
 import UDPClient from './structure/UDPClient';
 import { QueryOptions } from './types/QueryOptions';
 import { resolveSRV } from './util/srvRecord';
@@ -81,7 +81,7 @@ export function queryFull(host: string, port = 25565, options?: QueryOptions): P
 			}
 
 			// Request packet
-			// https://wiki.vg/Query#Request
+			// https://minecraft.wiki/w/Java_Edition_protocol/Query#Request
 			{
 				socket.writeUInt16BE(0xFEFD);
 				socket.writeByte(0x09);
@@ -92,7 +92,7 @@ export function queryFull(host: string, port = 25565, options?: QueryOptions): P
 			let challengeToken;
 
 			// Response packet
-			// https://wiki.vg/Query#Response
+			// https://minecraft.wiki/w/Java_Edition_protocol/Query#Response
 			{
 				const packetType = await socket.readByte();
 				if (packetType !== 0x09) throw new Error('Expected server to send packet type 0x09, received ' + packetType);
@@ -105,7 +105,7 @@ export function queryFull(host: string, port = 25565, options?: QueryOptions): P
 			}
 
 			// Full stat request packet
-			// https://wiki.vg/Query#Request_3
+			// https://minecraft.wiki/w/Java_Edition_protocol/Query#Request_3
 			{
 				socket.writeUInt16BE(0xFEFD);
 				socket.writeByte(0x00);
@@ -116,7 +116,7 @@ export function queryFull(host: string, port = 25565, options?: QueryOptions): P
 			}
 
 			// Full stat response packet
-			// https://wiki.vg/Query#Response_3
+			// https://minecraft.wiki/w/Java_Edition_protocol/Query#Response_3
 			{
 				const packetType = await socket.readByte();
 				if (packetType !== 0x00) throw new Error('Expected server to send packet type 0x00, received ' + packetType);
